@@ -1,0 +1,1 @@
+# A multiple cropping component for React
