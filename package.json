@@ -1,16 +1,20 @@
 {
   "name": "react-multi-crops",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "lib/index.js",
   "license": "MIT",
   "author": {
     "name": "Victor Wang",
     "email": "TheHappiestMan@qq.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beizhedenglong/react-multi-crops.git"
+  },
   "scripts": {
     "start": "parcel ./examples/index.html -p 3000",
     "lint": "eslint ./src/**/**.js",
-    "build": "rimraf build && babel src --out-dir build"
+    "build": "rimraf lib && babel src --out-dir lib"
   },
   "pre-commit": [
     "lint"
