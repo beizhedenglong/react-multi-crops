@@ -21,3 +21,5 @@ dist
 .eslint*
 jsconfig.json
 .npmignore
+.cache
+examples

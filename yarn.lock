@@ -3809,6 +3809,18 @@ react-multi-crops@^0.0.1:
     react-dom "^16.2.0"
     shortid "^2.2.8"
 
+react-multi-crops@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-multi-crops/-/react-multi-crops-0.0.4.tgz#2540d906d65730885eb6d22c3e4c76c88eacfc8f"
+  dependencies:
+    interactjs "^1.4.0-alpha.1"
+    prop-types "^15.6.1"
+    ramda "^0.25.0"
+    react "^16.2.0"
+    react-dom "^16.2.0"
+    react-multi-crops "^0.0.1"
+    shortid "^2.2.8"
+
 react@^16.2.0:
   version "16.2.0"
   resolved "http://registry.npm.taobao.org/react/download/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
