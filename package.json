@@ -12,7 +12,8 @@
     "url": "https://github.com/beizhedenglong/react-multi-crops.git"
   },
   "scripts": {
-    "start": "parcel ./examples/index.html -p 3000",
+    "start": "parcel ./examples/index.html -p 3000 -d doc",
+    "demo": "parcel build ./examples/index.html -d doc",
     "lint": "eslint ./src/**/**.js",
     "build": "rimraf lib && babel src --out-dir lib",
     "publish": "npm run build && npm publish"
