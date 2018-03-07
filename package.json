@@ -1,6 +1,6 @@
 {
   "name": "react-multi-crops",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "lib/index.js",
   "license": "MIT",
   "author": {
@@ -50,7 +50,7 @@
     "ramda": "^0.25.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-multi-crops": "^0.0.4",
+    "react-multi-crops": "^0.0.5",
     "shortid": "^2.2.8"
   }
 }
