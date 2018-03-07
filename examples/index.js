@@ -1,13 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import MultiCrops from 'react-multi-crops'
-// import MultiCrops from '../src/components/MultiCrops'
+// import MultiCrops from 'react-multi-crops'
+import MultiCrops from '../src/components/MultiCrops'
 import img from './imgs/kumamon.jpg'
 
 
 class App extends React.Component {
   state = {
-    coordinates: [],
+    coordinates: [
+      {
+        x: 178, y: 91, width: 158, height: 132, id: 'SJxb6YpuG',
+      },
+      {
+        x: 436, y: 97, width: 170, height: 168, id: 'SJMZ6YTdf',
+      },
+    ],
   }
 
   changeCoordinate = (coordinate, index, coordinates) => {
@@ -22,11 +29,8 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div style={{
-        display: 'inline-block',
-        position: 'relative',
-      }}
-      >
+      <div>
+        <h1>Dragging, Drawing, Resizing rectangles on the img</h1>
         <MultiCrops
           src={img}
           width={1000}

@@ -89,6 +89,10 @@ class MultiCrops extends Component {
     // const { clicked } = this.state
     return (
       <div
+        style={{
+          display: 'inline-block',
+          position: 'relative',
+        }}
         onMouseDown={this.handleMouseDown}
         onMouseMove={this.handleMouseMove}
         onMouseUp={this.handlMouseUp}

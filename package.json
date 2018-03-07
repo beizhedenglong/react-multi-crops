@@ -1,6 +1,6 @@
 {
   "name": "react-multi-crops",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "lib/index.js",
   "license": "MIT",
   "author": {
@@ -12,8 +12,8 @@
     "url": "https://github.com/beizhedenglong/react-multi-crops.git"
   },
   "scripts": {
-    "start": "parcel ./examples/index.html -p 3000 -d doc",
-    "demo": "parcel build ./examples/index.html -d doc",
+    "start": "parcel ./examples/index.html -p 3000",
+    "demo": "parcel build ./examples/index.html -d docs --public-url ./",
     "lint": "eslint ./src/**/**.js",
     "build": "rimraf lib && babel src --out-dir lib",
     "publish": "npm run build && npm publish"
