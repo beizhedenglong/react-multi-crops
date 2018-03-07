@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { both, is, complement, equals, map, addIndex } from 'ramda'
+import { both, clone, is, complement, equals, map, addIndex } from 'ramda'
 import PropTypes from 'prop-types'
 import shortid from 'shortid'
 import Crop, { coordinateType } from './Crop'
@@ -54,7 +54,7 @@ class MultiCrops extends Component {
 
 
   handleMouseMove = (e) => {
-    const { onDraw, onChange } = this.props
+    const { onDraw, onChange, coordinates } = this.props
     const { pointA } = this
     if (isValidPoint(pointA)) {
       const pointB = this.getCursorPosition(e)
@@ -67,12 +67,13 @@ class MultiCrops extends Component {
         height: Math.abs(pointA.y - pointB.y),
         id: this.id,
       }
-
+      const nextCoordinates = clone(coordinates)
+      nextCoordinates[this.drawingIndex] = coordinate
       if (is(Function, onDraw)) {
-        onDraw(coordinate, this.drawingIndex)
+        onDraw(coordinate, this.drawingIndex, nextCoordinates)
       }
       if (is(Function, onChange)) {
-        onChange(coordinate, this.drawingIndex)
+        onChange(coordinate, this.drawingIndex, nextCoordinates)
       }
     }
   }

@@ -1,32 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { clone, remove } from 'ramda'
-import MultiCrops, { addid, removeid } from '../build'
-import img from './bg.jpeg'
+// import MultiCrops from 'react-multi-crops'
+import MultiCrops from '../src/components/MultiCrops'
+import img from './imgs/kumamon.jpg'
 
 
 class App extends React.Component {
   state = {
-    coordinates: addid([
-      {
-        x: 0, y: 0, width: 100, height: 100,
-      },
-    ]),
+    coordinates: [],
   }
 
-  changeCoordinate = (coordinate, index) => {
-    const coordinates = clone(this.state.coordinates)
-
-    coordinates[index] = coordinate
-    // console.log(index)
+  changeCoordinate = (coordinate, index, coordinates) => {
     this.setState({
       coordinates,
     })
-    console.log(removeid(this.state.coordinates))
   }
-  deleteCoordinate = (coordinate, index) => {
+  deleteCoordinate = (coordinate, index, coordinates) => {
     this.setState({
-      coordinates: remove(index, 1)(this.state.coordinates),
+      coordinates,
     })
   }
   render() {
@@ -40,9 +31,9 @@ class App extends React.Component {
           src={img}
           width={1000}
           coordinates={this.state.coordinates}
-          onDrag={this.changeCoordinate}
-          onResize={this.changeCoordinate}
-          onDraw={this.changeCoordinate}
+          // onDrag={this.changeCoordinate}
+          // onResize={this.changeCoordinate}
+          // onDraw={this.changeCoordinate}
           onChange={this.changeCoordinate}
           onDelete={this.deleteCoordinate}
           // onLoad={e => console.log(e.target.height, e.target.width)}

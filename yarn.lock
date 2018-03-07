@@ -3798,6 +3798,17 @@ react-dom@^16.2.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+react-multi-crops@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/react-multi-crops/-/react-multi-crops-0.0.1.tgz#681354bbfba9674479f0d642ae36e4838b59587c"
+  dependencies:
+    interactjs "^1.4.0-alpha.1"
+    prop-types "^15.6.1"
+    ramda "^0.25.0"
+    react "^16.2.0"
+    react-dom "^16.2.0"
+    shortid "^2.2.8"
+
 react@^16.2.0:
   version "16.2.0"
   resolved "http://registry.npm.taobao.org/react/download/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"

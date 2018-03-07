@@ -14,7 +14,8 @@
   "scripts": {
     "start": "parcel ./examples/index.html -p 3000",
     "lint": "eslint ./src/**/**.js",
-    "build": "rimraf lib && babel src --out-dir lib"
+    "build": "rimraf lib && babel src --out-dir lib",
+    "publish": "npm run build && npm publish"
   },
   "pre-commit": [
     "lint"
@@ -49,6 +50,7 @@
     "ramda": "^0.25.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-multi-crops": "^0.0.1",
     "shortid": "^2.2.8"
   }
 }

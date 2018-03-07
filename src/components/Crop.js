@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { equals, is } from 'ramda'
+import { equals, is, update, remove } from 'ramda'
 import interact from 'interactjs'
 import { DeleteIcon, NumberIcon } from './Icons'
 
@@ -41,6 +41,7 @@ class Crop extends Component {
   shouldComponentUpdate(nextProps) {
     // reduce uncessary update
     return !equals(nextProps.coordinate, this.props.coordinate)
+      || (nextProps.index !== this.props.index)
   }
 
   handleResizeMove = (e) => {
@@ -48,6 +49,7 @@ class Crop extends Component {
       index,
       coordinate,
       coordinate: { x, y },
+      coordinates,
       onResize,
       onChange,
     } = this.props
@@ -57,11 +59,12 @@ class Crop extends Component {
     const nextCoordinate = {
       ...coordinate, x: x + left, y: y + top, width, height,
     }
+    const nextCoordinates = update(index, nextCoordinate)(coordinates)
     if (is(Function, onResize)) {
-      onResize(nextCoordinate, index)
+      onResize(nextCoordinate, index, nextCoordinates)
     }
     if (is(Function, onChange)) {
-      onChange(nextCoordinate, index)
+      onChange(nextCoordinate, index, nextCoordinates)
     }
   }
   handleDragMove = (e) => {
@@ -69,17 +72,19 @@ class Crop extends Component {
       index,
       coordinate,
       coordinate: { x, y },
+      coordinates,
       onDrag,
       onChange,
     } = this.props
     const { dx, dy } = e
     const nextCoordinate = { ...coordinate, x: x + dx, y: y + dy }
+    const nextCoordinates = update(index, nextCoordinate)(coordinates)
     if (is(Function, onDrag)) {
-      onDrag(nextCoordinate, index)
+      onDrag(nextCoordinate, index, nextCoordinates)
     }
 
     if (is(Function, onChange)) {
-      onChange(nextCoordinate, index)
+      onChange(nextCoordinate, index, nextCoordinates)
     }
   }
 
@@ -88,9 +93,11 @@ class Crop extends Component {
       index,
       coordinate,
       onDelete,
+      coordinates,
     } = this.props
+    const nextCoordinates = remove(index, 1)(coordinates)
     if (is(Function, onDelete)) {
-      onDelete(coordinate, index)
+      onDelete(coordinate, index, nextCoordinates)
     }
   }
 
@@ -131,6 +138,7 @@ Crop.propTypes = {
   onDrag: PropTypes.func, // eslint-disable-line
   onDelete: PropTypes.func, // eslint-disable-line
   onChange: PropTypes.func, // eslint-disable-line
+  coordinates: PropTypes.array // eslint-disable-line
 }
 
 export default Crop
