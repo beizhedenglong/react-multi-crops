@@ -1,6 +1,6 @@
 {
   "name": "react-multi-crops",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "main": "lib/index.js",
   "license": "MIT",
   "author": {
@@ -42,8 +42,7 @@
     "eslint-plugin-react": "^7.4.0",
     "parcel-bundler": "^1.6.2",
     "pre-commit": "^1.2.2",
-    "rimraf": "^2.6.2",
-    "styled-jsx": "^2.2.5"
+    "rimraf": "^2.6.2"
   },
   "dependencies": {
     "interactjs": "^1.4.0-alpha.1",
@@ -52,6 +51,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-multi-crops": "^0.0.5",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "styled-jsx": "^2.2.6"
   }
 }
