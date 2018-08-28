@@ -97,6 +97,7 @@ class MultiCrops extends Component {
         onMouseMove={this.handleMouseMove}
         onMouseUp={this.handlMouseUp}
         ref={container => this.container = container}
+        id="multi-crops-container"
       >
         <img
           ref={img => this.img = img}
