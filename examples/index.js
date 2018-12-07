@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-// import MultiCrops from 'react-multi-crops'
 import MultiCrops from '../src/components/MultiCrops'
 import img from './imgs/kumamon.jpg'
 

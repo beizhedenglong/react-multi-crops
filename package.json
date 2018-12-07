@@ -42,15 +42,18 @@
     "eslint-plugin-react": "^7.4.0",
     "parcel-bundler": "^1.6.2",
     "pre-commit": "^1.2.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
     "rimraf": "^2.6.2"
+  },
+  "peerDependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "dependencies": {
     "interactjs": "^1.4.0-alpha.1",
     "prop-types": "^15.6.1",
     "ramda": "^0.25.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-multi-crops": "^0.0.5",
     "shortid": "^2.2.8",
     "styled-jsx": "^2.2.6"
   }
