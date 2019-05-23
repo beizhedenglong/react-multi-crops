@@ -115,22 +115,24 @@ class MultiCrops extends Component {
 }
 
 const {
-  string, arrayOf, number, func,
+  string, arrayOf, number, func, bool,
 } = PropTypes
 
 MultiCrops.propTypes = {
   coordinates: arrayOf(coordinateType),
   src: string,
-  width: number, // eslint-disable-line
-  height: number, // eslint-disable-line
-  onDraw: func, // eslint-disable-line
-  onChange: func, // eslint-disable-line
-  onLoad: func, // eslint-disable-line
+  width: number,
+  height: number,
+  onDraw: func,
+  onChange: func,
+  onLoad: func,
+  permitAreaOverlap: bool,
 }
 
 MultiCrops.defaultProps = {
   coordinates: [],
   src: '',
+  permitAreaOverlap: true,
 }
 
 export default MultiCrops

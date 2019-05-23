@@ -61,18 +61,19 @@ ReactDOM.render(
 
 ## Props
 
-| Prop        | Description                                                  | Type                                     | Default |
-| ----------- | ------------------------------------------------------------ | ---------------------------------------- | ------- |
-| src         | Src of background image.                                     | string                                   | -       |
-| coordinates | An array of coordinate( see the table blew), {id, x, y, width, height}. | array                                    | []      |
-| width       | Width of background image.                                   | number(in pixel)                         | -       |
-| height      | Height of background image.                                  | number(in pixel)                         | -       |
-| onDraw      | A callback which hanppends when a user starts drawing a new rectangle. | funtion(coordinate , index, coordinates) | -       |
-| onDrag      | A callback which hanppends when  a user stars draging a exited rectangle. | funtion(coordinate , index, coordinates) | -       |
-| onResize    | A callback which hanppends when a user starts resizing a exited rectangle. | funtion(coordinate , index, coordinates) | -       |
-| onChange    | A callback which hanppends when a user starts drawing, draging or resizing a new/exited rectangle. | funtion(coordinate , index, coordinates) | -       |
-| onDelete    | A callback which hanppends when a user delete a exited rectangle. | funtion(coordinate , index, coordinates) | -       |
-| onLoad      | The callback is  triggered when the background image is loaded. | onLoad(e)                                | -       |
+| Prop              | Description                                                  | Type                                     | Default |
+| ----------------- | ------------------------------------------------------------ | ---------------------------------------- | ------- |
+| src               | Src of background image.                                     | string                                   | -       |
+| coordinates       | An array of coordinate( see the table blew), {id, x, y, width, height}. | array                                    | []      |
+| width             | Width of background image.                                   | number(in pixel)                         | -       |
+| height            | Height of background image.                                  | number(in pixel)                         | -       |
+| onDraw            | A callback which hanppends when a user starts drawing a new rectangle. | funtion(coordinate , index, coordinates) | -       |
+| onDrag            | A callback which hanppends when  a user stars draging a exited rectangle. | funtion(coordinate , index, coordinates) | -       |
+| onResize          | A callback which hanppends when a user starts resizing a exited rectangle. | funtion(coordinate , index, coordinates) | -       |
+| onChange          | A callback which hanppends when a user starts drawing, draging or resizing a new/exited rectangle. | funtion(coordinate , index, coordinates) | -       |
+| onDelete          | A callback which hanppends when a user delete a exited rectangle. | funtion(coordinate , index, coordinates) | -       |
+| onLoad            | The callback is  triggered when the background image is loaded. | onLoad(e)                                | -       |
+| permitAreaOverlap | If set to false prevent the overlap between crop areas       | boolean                                  | true    |
 
 
 ### coordinate
