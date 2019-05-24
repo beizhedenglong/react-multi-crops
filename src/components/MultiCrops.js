@@ -3,7 +3,7 @@ import { both, clone, is, complement, equals, map, addIndex } from 'ramda'
 import PropTypes from 'prop-types'
 import shortid from 'shortid'
 import Crop, { coordinateType } from './Crop'
-
+import { areaNotAvailable } from '../utils'
 
 const isValidPoint = (point = {}) => {
   const strictNumber = number => both(
@@ -54,7 +54,13 @@ class MultiCrops extends Component {
 
 
   handleMouseMove = (e) => {
-    const { onDraw, onChange, coordinates } = this.props
+    const {
+      onDraw,
+      onChange,
+      coordinates,
+      permitAreaOverlap,
+    } = this.props
+
     const { pointA } = this
     if (isValidPoint(pointA)) {
       const pointB = this.getCursorPosition(e)
@@ -67,6 +73,16 @@ class MultiCrops extends Component {
         height: Math.abs(pointA.y - pointB.y),
         id: this.id,
       }
+
+      const elementIntoArea = areaNotAvailable(coordinates, coordinate)
+
+      if (!permitAreaOverlap && elementIntoArea) {
+        coordinate.background = 'red'
+        coordinate.zIndex = 1
+      } else {
+        coordinate.background = null
+      }
+
       const nextCoordinates = clone(coordinates)
       nextCoordinates[this.drawingIndex] = coordinate
       if (is(Function, onDraw)) {
@@ -79,6 +95,30 @@ class MultiCrops extends Component {
   }
 
   handlMouseUp = () => {
+    const { coordinates, onDraw, onChange } = this.props
+
+    let deleteIndex
+    let coordinate
+
+    coordinates.forEach((element, index) => {
+      if (element.id === this.id) {
+        deleteIndex = index
+        coordinate = element
+      }
+    })
+
+    if (coordinate && coordinate.background === 'red') {
+      coordinates.splice(deleteIndex, 1)
+
+      const nextCoordinates = clone(coordinates)
+      if (is(Function, onDraw)) {
+        onDraw(coordinate, this.drawingIndex, nextCoordinates)
+      }
+      if (is(Function, onChange)) {
+        onChange(coordinate, this.drawingIndex, nextCoordinates)
+      }
+    }
+
     this.pointA = {}
   }
 
@@ -115,22 +155,24 @@ class MultiCrops extends Component {
 }
 
 const {
-  string, arrayOf, number, func,
+  string, arrayOf, number, func, bool,
 } = PropTypes
 
 MultiCrops.propTypes = {
   coordinates: arrayOf(coordinateType),
   src: string,
-  width: number, // eslint-disable-line
-  height: number, // eslint-disable-line
-  onDraw: func, // eslint-disable-line
-  onChange: func, // eslint-disable-line
-  onLoad: func, // eslint-disable-line
+  width: number,
+  height: number,
+  onDraw: func,
+  onChange: func,
+  onLoad: func,
+  permitAreaOverlap: bool,
 }
 
 MultiCrops.defaultProps = {
   coordinates: [],
   src: '',
+  permitAreaOverlap: true,
 }
 
 export default MultiCrops

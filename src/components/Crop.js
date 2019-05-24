@@ -4,10 +4,12 @@ import { equals, is, update, remove } from 'ramda'
 import interact from 'interactjs'
 import { DeleteIcon, NumberIcon } from './Icons'
 
+import { areaNotAvailable } from '../utils'
+
 class Crop extends Component {
   static cropStyle = (coordinate) => {
     const {
-      x, y, width, height,
+      x, y, width, height, background, zIndex,
     } = coordinate
 
     return {
@@ -19,10 +21,9 @@ class Crop extends Component {
       height,
       top: y,
       left: x,
-
-
+      zIndex: zIndex || 0,
       boxShadow: '0 0 6px #000',
-      background: '#8c8c8c',
+      background: background || '#8c8c8c',
       opacity: 0.6,
     }
   }
@@ -35,6 +36,8 @@ class Crop extends Component {
           left: true, right: true, bottom: true, top: true,
         },
       })
+      .on('mousedown', this.handleMouseDown)
+      .on('mouseup', this.handleMouseUp)
       .on('dragmove', this.handleDragMove)
       .on('resizemove', this.handleResizeMove)
   }
@@ -44,6 +47,35 @@ class Crop extends Component {
       || (nextProps.index !== this.props.index)
   }
 
+  handleMouseDown = () => {
+    const { index, coordinate } = this.props
+    this.previus = {
+      index,
+      coordinate,
+    }
+  }
+
+  handleMouseUp = () => {
+    const {
+      coordinate, coordinates, onResize, onChange, permitAreaOverlap,
+    } = this.props
+
+    if (!permitAreaOverlap) {
+      if (coordinate.background && this.previus) {
+        const nextCoordinates = update(this.previus.index, this.previus.coordinate)(coordinates)
+        if (is(Function, onResize)) {
+          onResize(this.previus.coordinate, this.previus.index, nextCoordinates)
+        }
+        if (is(Function, onChange)) {
+          onChange(this.previus.coordinate, this.previus.index, nextCoordinates)
+        }
+      }
+    }
+    coordinate.zIndex = undefined
+    this.previus = undefined
+  }
+
+
   handleResizeMove = (e) => {
     const {
       index,
@@ -52,6 +84,7 @@ class Crop extends Component {
       coordinates,
       onResize,
       onChange,
+      permitAreaOverlap,
     } = this.props
     const { width, height } = e.rect
     const { left, top } = e.deltaRect
@@ -59,6 +92,14 @@ class Crop extends Component {
     const nextCoordinate = {
       ...coordinate, x: x + left, y: y + top, width, height,
     }
+
+    if (!permitAreaOverlap && areaNotAvailable(coordinates, coordinate)) {
+      nextCoordinate.background = 'red'
+      nextCoordinate.zIndex = 1
+    } else {
+      nextCoordinate.background = null
+    }
+
     const nextCoordinates = update(index, nextCoordinate)(coordinates)
     if (is(Function, onResize)) {
       onResize(nextCoordinate, index, nextCoordinates)
@@ -75,9 +116,19 @@ class Crop extends Component {
       coordinates,
       onDrag,
       onChange,
+      permitAreaOverlap,
     } = this.props
     const { dx, dy } = e
+
     const nextCoordinate = { ...coordinate, x: x + dx, y: y + dy }
+
+    if (!permitAreaOverlap && areaNotAvailable(coordinates, coordinate)) {
+      nextCoordinate.background = 'red'
+      nextCoordinate.zIndex = 1
+    } else {
+      nextCoordinate.background = null
+    }
+
     const nextCoordinates = update(index, nextCoordinate)(coordinates)
     if (is(Function, onDrag)) {
       onDrag(nextCoordinate, index, nextCoordinates)
@@ -138,7 +189,9 @@ Crop.propTypes = {
   onDrag: PropTypes.func, // eslint-disable-line
   onDelete: PropTypes.func, // eslint-disable-line
   onChange: PropTypes.func, // eslint-disable-line
-  coordinates: PropTypes.array // eslint-disable-line
+  coordinates: PropTypes.array, // eslint-disable-line
+  permitAreaOverlap: PropTypes.bool, // eslint-disable-line
+  previus: PropTypes.any // eslint-disable-line
 }
 
 export default Crop

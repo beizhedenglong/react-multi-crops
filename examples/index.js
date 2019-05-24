@@ -39,6 +39,7 @@ class App extends React.Component {
           // onDraw={this.changeCoordinate}
           onChange={this.changeCoordinate}
           onDelete={this.deleteCoordinate}
+          permitAreaOverlap={false}
           // onLoad={e => console.log(e.target.height, e.target.width)}
         />
       </div>
