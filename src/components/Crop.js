@@ -4,36 +4,7 @@ import { equals, is, update, remove } from 'ramda'
 import interact from 'interactjs'
 import { DeleteIcon, NumberIcon } from './Icons'
 
-const isOverlapping = (self, other) => {
-  const left = self.x
-  const right = self.x + self.width
-  const top = self.y
-  const bottom = self.y + self.height
-  const otherleft = other.x
-  const otherright = other.x + other.width
-  const othertop = other.y
-  const otherbottom = other.y + other.height
-  return left <= otherright && right >= otherleft && top <= otherbottom && bottom >= othertop
-}
-
-const areaNotAvailable = (coordinates, coordinate) => {
-  let canContinue
-
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < coordinates.length; i++) {
-    const element = coordinates[i]
-    if (element.x === coordinate.x && coordinate.y === element.y) {
-      // eslint-disable-next-line no-continue
-      continue
-    }
-    // console.log('isOver', isOverlapping(element, coordinate))
-    if (isOverlapping(element, coordinate)) {
-      canContinue = element
-      break
-    }
-  }
-  return canContinue
-}
+import { areaNotAvailable } from '../utils'
 
 class Crop extends Component {
   static cropStyle = (coordinate) => {
@@ -90,7 +61,7 @@ class Crop extends Component {
     } = this.props
 
     if (!permitAreaOverlap) {
-      if (coordinate.background) {
+      if (coordinate.background && this.previus) {
         const nextCoordinates = update(this.previus.index, this.previus.coordinate)(coordinates)
         if (is(Function, onResize)) {
           onResize(this.previus.coordinate, this.previus.index, nextCoordinates)
@@ -113,6 +84,7 @@ class Crop extends Component {
       coordinates,
       onResize,
       onChange,
+      permitAreaOverlap,
     } = this.props
     const { width, height } = e.rect
     const { left, top } = e.deltaRect
@@ -120,6 +92,14 @@ class Crop extends Component {
     const nextCoordinate = {
       ...coordinate, x: x + left, y: y + top, width, height,
     }
+
+    if (!permitAreaOverlap && areaNotAvailable(coordinates, coordinate)) {
+      nextCoordinate.background = 'red'
+      nextCoordinate.zIndex = 1
+    } else {
+      nextCoordinate.background = null
+    }
+
     const nextCoordinates = update(index, nextCoordinate)(coordinates)
     if (is(Function, onResize)) {
       onResize(nextCoordinate, index, nextCoordinates)
